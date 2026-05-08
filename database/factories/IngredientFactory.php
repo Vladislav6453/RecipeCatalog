@@ -18,8 +18,25 @@ class IngredientFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->unique()->word(),
-            'default_unit' => fake()->randomElement(['g', 'kg', 'ml']),
+            'name' => fake()->randomElement([
+                'Помидор',
+                'Молоко',
+                'Лук',
+                'Чеснок',
+                'Яйца',
+                'Соль',
+                'Перец',
+                'Мука',
+                'Кефир',
+                'Шпинат',
+                'Майонез',
+                'Масло',
+                'Сахар',
+                'Салат',
+                'Мясо',
+                'Морковь'
+            ]),
+            'default_unit' => fake()->randomElement(['г.', 'мл.', 'шт.','ст.л.']),
         ];
     }
 }

@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Comment;
+use App\Models\Recipe;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,8 +21,8 @@ class CommentFactory extends Factory
     {
         return [
             'body'=>fake()->sentence(10),
-            'user_id'=>1,
-            'recipe_id'=>1,
+            'user_id'=>User::factory(),
+            'recipe_id'=>Recipe::factory(),
         ];
     }
 }

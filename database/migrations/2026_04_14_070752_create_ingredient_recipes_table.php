@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ingredient_recipes', function (Blueprint $table) {
+        Schema::create('ingredient_recipe', function (Blueprint $table) {
             $table->id();
+            $table->integer('recipe_id')->constrained()->cascadeOnDelete();
+            $table->integer('ingredient_id')->constrained()->cascadeOnDelete();
+            $table->string('quantity',10,2);
+            $table->string('unit');
             $table->timestamps();
         });
     }

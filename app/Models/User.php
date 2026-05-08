@@ -47,10 +47,6 @@ class User extends Model
         'avatar',
     ];
 
-    public function recipes()
-    {
-        return $this->hasMany(Recipe::class, 'author_id');
-    }
 
     public function comments()
     {
@@ -62,16 +58,19 @@ class User extends Model
         return $this->hasMany(Rating::class);
     }
 
-    public function favorires()
+ /*   public function favorites()
     {
         return $this->belongsToMany(RecipeUser::class,'recipe_user')->withPivot('added_at');
-    }
+    }*/
 
     public function isAdmin(): bool
     {
         return $this->role === 'admin';
     }
 
-
+    public function recipes(): BelongsToMany
+    {
+        return $this->belongsToMany(Recipe::class, 'recipes');
+    }
 
 }
