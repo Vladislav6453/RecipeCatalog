@@ -19,7 +19,7 @@ class Comment extends Model
     protected $fillable = [
         'body',
         'user_id',
-        'reply_id',
+        'recipe_id',
     ];
 
     public function user()

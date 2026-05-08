@@ -19,9 +19,9 @@ class RatingFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => 1,
-            'recipe_id' => 1,
-            'rating' => $this->faker->numberBetween(1, 5),
+            'user_id' => User::factory(),
+            'recipe_id' => Recipe::factory(),
+            'rating' => rand(1, 5),
         ];
     }
 }

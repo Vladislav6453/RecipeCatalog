@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Recipe;
 use App\Models\RecipeStep;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,8 +19,8 @@ class RecipeStepFactory extends Factory
     public function definition(): array
     {
         return [
-            'recipe_id' => 1,
-            'step_number' => 1,
+            'recipe_id' => Recipe::factory(),
+            'step_number' => numberBetween(1, 5),
             'description' => $this->faker->sentence()
         ];
     }

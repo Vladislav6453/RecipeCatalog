@@ -2,13 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Models\RecipeUser;
+use App\Models\Favorite;
+use App\Models\Recipe;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<RecipeUser>
+ * @extends Factory<Favorite>
  */
-class RecipeUserFactory extends Factory
+class FavoriteFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,9 +20,8 @@ class RecipeUserFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'=>1,
-            'recipe_id'=>1,
-            'added_at'=>now(),
+            'user_id' => User::factory(),
+            'recipe_id' => Recipe::factory()
         ];
     }
 }

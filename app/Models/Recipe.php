@@ -32,9 +32,12 @@ class Recipe extends Model
         'description',
         'image',
         'category_id',
+        'author_id',
         'cooking_time',
         'servings',
         'difficulty',
+        'rating',
+        'rating_count',
         'is_published',
     ];
 
@@ -71,5 +74,15 @@ class Recipe extends Model
     public function favoritedBy()
     {
         return $this->belongsToMany(RecipeUser::class,'recipe_user')->withPivot('added_at');
+    }
+
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class,'recipe_user');
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
     }
 }

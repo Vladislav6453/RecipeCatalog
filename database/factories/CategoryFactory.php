@@ -4,7 +4,8 @@ namespace Database\Factories;
 
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Psy\Util\Str;
+use Illuminate\Support\Str;
+
 
 /**
  * @extends Factory<Category>
@@ -20,8 +21,20 @@ class CategoryFactory extends Factory
     {
         $name = $this->faker->unique()->word();
         return [
-            'name' => ucfirst($name),
-            'slug' => Str::slug($name)
+                'name' => fake()->randomElement([
+                    'Завтрак',
+                    'Обед',
+                    'Ужин',
+                    'Напиток',
+                    'Салат',
+                    'Перекус',
+                    'Гарнир',
+                    'Суп',
+                    'Подливка',
+                    'Выпечка',
+                    'Торт',
+                ]),
+            'slug' => Str::slug($name),
         ];
     }
 }
