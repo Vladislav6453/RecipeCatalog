@@ -1,3 +1,73 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Дополнительные утилиты для каталога рецептов */
+@layer utilities {
+    .line-clamp-1 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+    }
+    
+    .line-clamp-2 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+    
+    .line-clamp-3 {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+    }
+}
+
+@layer components {
+    .recipe-card {
+        @apply bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden;
+    }
+    
+    .recipe-card-image {
+        @apply w-full h-48 object-cover;
+    }
+    
+    .recipe-card-content {
+        @apply p-6;
+    }
+    
+    .recipe-card-title {
+        @apply text-lg font-semibold mb-2 text-gray-900 hover:text-indigo-600 transition-colors;
+    }
+    
+    .recipe-card-description {
+        @apply text-gray-600 text-sm mb-4 line-clamp-2;
+    }
+    
+    .recipe-card-meta {
+        @apply flex items-center justify-between text-sm text-gray-500;
+    }
+    
+    .category-badge {
+        @apply inline-block bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded font-medium;
+    }
+    
+    .rating-stars {
+        @apply flex items-center text-yellow-500;
+    }
+    
+    .btn-primary {
+        @apply px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors;
+    }
+    
+    .btn-secondary {
+        @apply px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors;
+    }
+    
+    .btn-danger {
+        @apply px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors;
+    }
+}

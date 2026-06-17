@@ -16,7 +16,8 @@ use Illuminate\Database\Eloquent\Model;
 class Ingredient extends Model
 {
     use HasFactory;
-    protected $fillable = ['name, default_unit'];
+    protected $fillable = ['name', 'unit'];
+    
     public function recipes()
     {
         return $this->belongsToMany(Recipe::class)->withPivot(['quantity', 'unit']);

@@ -2,94 +2,36 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
-use App\Models\Comment;
-use App\Models\Favorite;
-use App\Models\Ingredient;
-use App\Models\IngredientRecipe;
-use App\Models\Rating;
-use App\Models\Recipe;
-use App\Models\RecipeStep;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-
-        User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => bcrypt('password'),
-            'avatar' => 'avatar.png',
-            'role' => 'admin',
+        // Создаем тестового пользователя
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
         ]);
-        $users = User::factory(20)->create();
 
-        $categories = Category::factory(5)->create();
-        $ingredients = Ingredient::factory(20)->create();
-        /*$favorites = Favorite::factory(50)->create();*/
-        /*$recipes = Recipe::factory(120)->create();*/
+        // Запускаем сидеры
+        $this->call([
+            CategorySeeder::class,
+        ]);
 
-
-        Recipe::factory(15)->create()->each(function ($recipe) use ($users, $ingredients, $categories) {
-            $recipe->update(['author_id' => $users->random()->id,'category_id' => $categories->random()->id]);
-            $selected = $ingredients->random(rand(3, 7));
-            foreach ($selected as $ingredient) {
-                $recipe->ingredients()->attach($ingredient->id, ['quantity' => rand(50, 500),'unit' => $ingredient->default_unit ?? 'г.'
-                ]);
-            }
-
-            foreach (range(1, rand(1, 10)) as $i) {
-                RecipeStep::create([
-                    'recipe_id' => $recipe->id,
-                    'step_number'=>$i,
-                    'description' => fake()->sentence(),
-                ]);
-            }
-
-            foreach (range(1, rand(2, 6)) as $i) {
-                Comment::create([
-                    'recipe_id' => $recipe->id,
-                    'user_id' => $users->random()->id,
-                    'body' => fake()->sentence(),
-                ]);
-            }
-
-            $ratingUsers = $users->random(rand(3, 10))->unique('id');
-
-            foreach ($ratingUsers as $user) {
-                Rating::create([
-                    'recipe_id' => $recipe->id,
-                    'user_id' => $user->id,
-                    'rating' => rand(1, 5)
-                ]);
-            }
-
-            $avg = $recipe->ratings()->avg('rating');
-            $recipe->update([
-                'rating' => $avg ? round($avg,2) : 0,
-                'rating_count' => $recipe->ratings()->count()
-            ]);
-
-            foreach ($users as $user) {
-                $recipes = Recipe::inRandomOrder()->take(rand(2, 5))->get();
-                foreach ($recipes as $recipe) {
-                    Favorite::firstOrCreate([
-                        'user_id' => $user->id,
-                        'recipe_id' => $recipe->id,
-                    ]);
-                }
-            }
-        });
-
-
+        // Создаем дополнительных пользователей и рецепты
+        User::factory(10)->create();
+        
+        // Создаем ингредиенты, рецепты и связанные данные
+        \App\Models\Ingredient::factory(50)->create();
+        \App\Models\Recipe::factory(30)->create();
+        \App\Models\RecipeStep::factory(150)->create();
+        \App\Models\Comment::factory(100)->create();
+        \App\Models\Rating::factory(200)->create();
+        \App\Models\Favorite::factory(80)->create();
     }
 }

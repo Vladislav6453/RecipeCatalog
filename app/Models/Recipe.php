@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property-read \App\Models\User|null $author
@@ -39,6 +40,7 @@ class Recipe extends Model
         'rating',
         'rating_count',
         'is_published',
+        'views_count',
     ];
 
     public function category()
@@ -53,7 +55,7 @@ class Recipe extends Model
 
     public function steps()
     {
-        return $this->hasMany(Recipe::class);
+        return $this->hasMany(RecipeStep::class);
     }
 
     public function ingredients()
