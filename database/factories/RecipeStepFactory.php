@@ -20,7 +20,7 @@ class RecipeStepFactory extends Factory
     {
         return [
             'recipe_id' => Recipe::factory(),
-            'step_number' => numberBetween(1, 5),
+            'step_number' => $this->faker->numberBetween(1, 5),
             'description' => $this->faker->sentence()
         ];
     }
