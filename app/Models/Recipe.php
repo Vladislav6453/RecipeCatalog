@@ -53,7 +53,7 @@ class Recipe extends Model
 
     public function steps()
     {
-        return $this->hasMany(Recipe::class);
+        return $this->hasMany(RecipeStep::class);
     }
 
     public function ingredients()
@@ -84,5 +84,50 @@ class Recipe extends Model
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('is_published', true);
+    }
+
+    /**
+     * Скоуп: сортировка по рейтингу (от высокого к низкому)
+     */
+    public function scopeOrderByRating($query)
+    {
+        return $query->orderBy('rating', 'desc');
+    }
+
+    /**
+     * Скоуп: сортировка по новизне (сначала новые)
+     */
+    public function scopeOrderByNewest($query)
+    {
+        return $query->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Скоуп: сортировка по дате (сначала старые)
+     */
+    public function scopeOrderByOldest($query)
+    {
+        return $query->orderBy('created_at', 'asc');
+    }
+
+    /**
+     * Скоуп: поиск по названию
+     */
+    public function scopeSearch($query, $term)
+    {
+        return $query->where('title', 'like', "%{$term}%");
+    }
+
+    /**
+     * Скоуп: фильтр по категории
+     */
+    public function scopeByCategory($query, $categoryId)
+    {
+        return $query->where('category_id', $categoryId);
     }
 }
